@@ -1,0 +1,19 @@
+.slider {
+  display: flex;
+  justify-content: center;
+}
+
+.slider > .slider-container {
+  flex: 1;
+  max-width: 50%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.slider .slider-output {
+  justify-self: end;
+}
+
+.slider input {
+  grid-column: 1 / span 2;
+}

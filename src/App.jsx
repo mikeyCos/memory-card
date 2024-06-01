@@ -1,13 +1,21 @@
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
 import "./styles/App.css";
 
 export default function App() {
+  const [currentScore, setCurrentScore] = useState(0);
+  const [bestScore, setBestScore] = useState(currentScore);
   return (
     <div id="app">
-      <Header />
-      <Main />
+      <Header currentScore={currentScore} bestScore={bestScore} />
+      <Main
+        currentScore={currentScore}
+        bestScore={bestScore}
+        setCurrentScore={setCurrentScore}
+        setBestScore={setBestScore}
+      />
       <Footer />
     </div>
   );

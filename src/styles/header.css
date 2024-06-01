@@ -7,6 +7,10 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+  position: relative;
+  /* Optional flex-wrap(?) */
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 #navbar ul {
@@ -15,6 +19,10 @@ header {
 
 #navbar a {
   text-decoration: none;
+}
+
+.nav-left {
+  flex: 1;
 }
 
 .nav-left a {
