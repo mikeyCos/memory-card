@@ -5,7 +5,7 @@
 
 .slider > .slider-container {
   flex: 1;
-  max-width: 50%;
+  max-width: 250px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
@@ -16,4 +16,8 @@
 
 .slider input {
   grid-column: 1 / span 2;
+}
+
+.slider input:hover {
+  cursor: pointer;
 }

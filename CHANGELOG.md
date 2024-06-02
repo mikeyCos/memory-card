@@ -1,5 +1,15 @@
 # Changelog
 ---
+### 03 JUN 2024
+- 
+---
+### 02 JUN 2024
+- Updated `README.md`.
+- Included an secondary option to fetch inside the `Cards` component's useEffect.
+- Added `headers` to fetch options.
+- Added `:hover` to `.slider input` and `.card` containers.
+- Removed padding from `.card` containers.
+---
 ### 31 MAY 2024
 - Converted `buildArray` function into a asynchronous function that fetches a response from `thecatapi`, resolves the response into a JavaScript object (an array) and passes it into the callback.
 - Moving the slider will reset the current and best scores.

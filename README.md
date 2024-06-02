@@ -34,7 +34,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">CV Application</h3>
+<h3 align="center">Memory Card</h3>
 
   <p align="center">
     project_description
@@ -48,7 +48,7 @@
     ·
     <a href="https://github.com/github_username/repo_name/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
     ·
-    <a href="https://github.com/mikeyCos/cv-application/blob/main/CHANGELOG.md">Changelog</a>
+    <a href="https://github.com/mikeyCos/memory-card/blob/main/CHANGELOG.md">Changelog</a>
   </p>
 </div>
 
@@ -85,7 +85,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![CV Application Screen Shot][product-screenshot]](https://example.com)
+[![Memory Card Screen Shot][product-screenshot]](https://example.com)
 
 Project: Memory Card
 
@@ -156,7 +156,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Initiate a skeleton
+- [x] Initiate skeleton directories/components/stylesheets.
+- [x] Fetch data from an API.
+- [x] Create a scoreboard component.
+  - [x] Update current score when a user clicks an image.
+  - [x] If user clicks an already clicked image, save current score into best score when a user clicks, reset current score to 0 and fetch a new collection of images.
+- [x] Create an input slider that increases and decreases the amount of 'cards' by setting a state it's inputs' value.
+- [ ] Create a "You won" pop up with a "Play again" button.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -165,7 +171,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
-Project Link: [https://github.com/mikeyCos/cv-application](https://github.com/mikeyCos/cv-application)
+Project Link: [https://github.com/mikeyCos/memory-card](https://github.com/mikeyCos/memory-card)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -175,7 +181,7 @@ Project Link: [https://github.com/mikeyCos/cv-application](https://github.com/mi
 ## Acknowledgments
 
 * [Best README Template](https://github.com/othneildrew/Best-README-Template)
-* []()
+* [The Cat API](https://thecatapi.com/)
 * []()
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

@@ -10,8 +10,12 @@
 }
 
 .card {
-  padding: 1rem;
   border: 2px solid black;
+}
+
+.card:hover {
+  cursor: pointer;
+  filter: brightness(1.25);
 }
 
 .card > img {

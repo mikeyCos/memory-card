@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Slider from "./Slider";
 import THECATAPI_KEY from "../data/THECATAPI_KEY";
 import "../styles/cards.css";
@@ -16,27 +16,35 @@ export default function Cards({
 
   useEffect(() => {
     // Problem, re-renders immediately onload
+    // Where and what is causing the re-renders (╯°□°)╯︵ ┻━┻
     console.log("mounting");
     console.log("cardCount:", cardCount);
-    // setCards(buildArray(cardCount));
+    console.log("-------------renderCount:", renderCount);
+    // Option 1
     buildArray(cardCount, setCards);
-    return () => {
-      console.log("cleaning");
-      return null;
-    };
-  }, [cardCount]);
 
-  // const cards = useMemo(() => {
-  //   return buildArray(cardCount);
-  // }, [cardCount]);
+    // Option 2
+    // How to throw error based on
+    // fetch(
+    //   `https://api.thecatapi.co/v1/images/search?size=small&limit=${cardCount}&mime_types=png`,
+    //   { mode: "cors", headers: { "x-api-key": THECATAPI_KEY } }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => setCards(data))
+    //   .catch((err) =>
+    //     setCards(
+    //       new Array(cardCount).fill().map(() => ({
+    //         id: Math.floor(Math.random() * 9999),
+    //         error: `${err}`,
+    //       }))
+    //     )
+    //   );
+  }, [cardCount]);
 
   console.log("-------------renderCount:", renderCount);
   console.log("cardCount:", cardCount);
+  console.log("cards:", cards);
 
-  console.log(cards);
-
-  //  https://api.thecatapi.com/v1/images/search?limit=10&api_key=
-  // https://api.thecatapi.com/v1/images/search?limit=${cardCount}&api_key=${THECATAPI_KEY}
   return (
     <>
       <Slider
@@ -52,7 +60,7 @@ export default function Cards({
           {cards?.map((item) => (
             <Card
               key={item.id}
-              item={item.url}
+              item={item}
               cardCount={cardCount}
               setCards={setCards}
               shuffleCards={() => setCards(shuffle(cards))}
@@ -76,6 +84,7 @@ function Card({
   setCurrentScore,
   setBestScore,
 }) {
+  // What to do if user actually clicks all unique cards only one time?
   const [isClicked, setIsClicked] = useState(false);
   return (
     <div
@@ -84,7 +93,6 @@ function Card({
         if (isClicked) {
           setCurrentScore(0);
           setBestScore(currentScore);
-          // setCards(buildArray(cardCount));
           buildArray(cardCount, setCards);
         } else {
           setIsClicked(true);
@@ -93,23 +101,45 @@ function Card({
         }
       }}
     >
-      <img src={item} />
+      {item.url && <img src={item.url} />}
+      {item.error && <div>{item.error}</div>}
     </div>
   );
 }
 
+let buildArrayCounter = 0;
 const buildArray = async (length, callback) => {
+  buildArrayCounter++;
+  console.log("buildArrayCounter:", buildArrayCounter);
+  // return new Array(length).fill().map(() => Math.floor(Math.random() * 1000));
   try {
     const response = await fetch(
-      `https://api.thecatapi.com/v1/images/search?size=small&limit=${length}&mime_types=png&api_key=${THECATAPI_KEY}`,
-      { mode: "cors" }
+      `https://api.thecatapi.com/v1/images/search?size=small&limit=${length}&mime_types=png`,
+      {
+        mode: "cors",
+        headers: { "x-api-key": THECATAPI_KEY },
+      }
     );
+
+    // If fetch fails, lines from below up to the catch block do not run
+    // Why? (╯°□°)╯︵ ┻━┻
+    // https://jasonwatmore.com/post/2021/10/09/fetch-error-handling-for-failed-http-responses-and-network-errors#:~:text=The%20fetch()%20function%20will,reject(error)%3B%20.
+    // The fetch() function will automatically throw an error for network errors
+    // but not for HTTP errors such as 4xx or 5xx responses.
+    console.log(response);
     const data = await response.json();
+
+    // if (!response.ok) throw new Error("Throw error test");
+
     callback(data);
   } catch (err) {
     console.log(err);
+    callback(
+      new Array(length)
+        .fill()
+        .map(() => ({ id: Math.floor(Math.random() * 9999), error: `${err}` }))
+    );
   }
-  // return new Array(length).fill().map(() => Math.floor(Math.random() * 1000));
 };
 
 const shuffle = (arr) => {
@@ -123,9 +153,3 @@ const shuffle = (arr) => {
   }
   return shuffledArr;
 };
-
-// https://cataas.com/
-// https://developers.thecatapi.com/view-account/ylX4blBYT9FaoVd6OhvR?report=bOoHBz-8t
-// Need to put cat image urls inside an array
-// Fetch before/during render?
-// If fetch before rendering, how to setup a loading screen?
