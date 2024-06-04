@@ -42,7 +42,7 @@
     <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">Live Preview</a>
+    <a href="https://memorycard-mikeycos.netlify.app/">Live Preview</a>
     ·
     <a href="https://github.com/github_username/repo_name/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
@@ -185,7 +185,7 @@ Project Link: [https://github.com/mikeyCos/memory-card](https://github.com/mikey
 
 * [Best README Template](https://github.com/othneildrew/Best-README-Template)
 * [The Cat API](https://thecatapi.com/)
-* []()
+* [Meow Facts](https://github.com/wh-iterabb-it/meowfacts)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

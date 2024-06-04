@@ -4,6 +4,9 @@
 - 
 ---
 ### 03 JUN 2024
+- Updated README.md.
+- Renamed `fetchMessages` to `fetchMessage` and now returns a string instead of an array of strings.
+- Removed top-level-await in `notifications.messages.data`.
 - Disabled a dialog element from rendering whenever a game has ended.
 - When a card or image is clicked, a random cat fact is displayed in the `#notifications .messages` container.
 - Created `notifications.messages.data` module; generates an array of messages that are fetched from [MeowFacts](https://github.com/wh-iterabb-it/meowfacts).

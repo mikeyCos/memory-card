@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import defaultMessage, {
-  getRandomMessage,
+  fetchMessage,
 } from "../data/notifications.messages.data";
 import "../styles/Notifications.css";
 
@@ -9,7 +9,7 @@ export default function Notifications({ currentScore }) {
 
   useEffect(() => {
     if (currentScore > 0) {
-      setMessage(getRandomMessage());
+      fetchMessage(setMessage);
     } else {
       setMessage(defaultMessage);
     }
