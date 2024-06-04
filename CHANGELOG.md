@@ -1,7 +1,17 @@
 # Changelog
 ---
-### 03 JUN 2024
+### 04 JUN 2024
 - 
+---
+### 03 JUN 2024
+- Disabled a dialog element from rendering whenever a game has ended.
+- When a card or image is clicked, a random cat fact is displayed in the `#notifications .messages` container.
+- Created `notifications.messages.data` module; generates an array of messages that are fetched from [MeowFacts](https://github.com/wh-iterabb-it/meowfacts).
+- Added breakpoint `@media screen and (min-width: 480px)` for `#notifications`/`#cards .container` containers.
+- Added `undraw_playful_cat.svg` into pathway `assets/icons/miscellaneous`.
+- Declared `onClickHandler` in `Cards` component instead of inside it's child component `Card`.
+- Renamed `shuffle` function to `shuffleCards`.
+- Best score is only set if `currentScore > bestScore`.
 ---
 ### 02 JUN 2024
 - Updated `README.md`.

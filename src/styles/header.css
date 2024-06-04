@@ -4,12 +4,11 @@ header {
 
 #navbar {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   padding: 0.5rem;
-  position: relative;
-  /* Optional flex-wrap(?) */
-  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
@@ -22,14 +21,22 @@ header {
 }
 
 .nav-left {
-  flex: 1;
+  display: flex;
 }
 
 .nav-left a {
   display: flex;
+  flex-direction: column;
 }
 
-.icon.github {
-  width: 2.5rem;
-  height: auto;
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  #navbar {
+    justify-content: space-between;
+    flex-direction: row;
+  }
 }

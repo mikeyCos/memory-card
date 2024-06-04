@@ -162,7 +162,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
   - [x] Update current score when a user clicks an image.
   - [x] If user clicks an already clicked image, save current score into best score when a user clicks, reset current score to 0 and fetch a new collection of images.
 - [x] Create an input slider that increases and decreases the amount of 'cards' by setting a state it's inputs' value.
-- [ ] Create a "You won" pop up with a "Play again" button.
+  - [ ] Remember the best score for each slider's value when a user moves the slider.
+- [ ] Create a pop up when a game has ended.
+ - [ ] Create a button to play a new game; uses new cards/images.
+ - [ ] Create a button to play again; uses the same cards/images.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -191,7 +194,89 @@ Project Link: [https://github.com/mikeyCos/memory-card](https://github.com/mikey
 <!-- QUESTIONS -->
 ## Questions
 
-1. Lorem ipsum
+1. When and where does it make sense to define a component's event handler? For example, passing props down to the `Card` component, declaring an the event handler in that component while using some, if not all, those props inside the event handler. 
+
+```js
+function Card({
+  cardCount,
+  setCards,
+  shuffleCards,
+  currentScore,
+  setCurrentScore,
+  setBestScore,
+}) {
+  return (
+    <div
+      className="card"
+      onClick={() => {
+        if (isClicked) {
+          setCurrentScore(0);
+          setBestScore(currentScore);
+          buildArray(cardCount, setCards);
+        } else {
+          setIsClicked(true);
+          setCurrentScore(currentScore + 1);
+          shuffleCards();
+        }
+      }}
+    >
+    </div>
+  );
+}
+
+```
+In contrast, declaring the event handler in the parent component; in this case, the `Cards` component. This way, less props are needed to pass down to the `Card` component, and the event handler can be passed down as a prop.
+```js
+function Cards({
+  currentScore,
+  bestScore,
+  setCurrentScore,
+  setBestScore,
+}) {
+  const [cardCount, setCardCount] = useState(6);
+  const [cards, setCards] = useState(null);
+
+  const onClickHandler = (isClicked, setIsClicked) => {
+    if (isClicked) {
+      setCurrentScore(0);
+      if (currentScore > bestScore) setBestScore(currentScore);
+      buildArray(cardCount, setCards);
+    } else {
+      setIsClicked(true);
+      setCurrentScore(currentScore + 1);
+      setCards(shuffleCards(cards));
+    }
+  };
+
+  useEffect(() => {
+    buildArray(cardCount, setCards);
+  }, [cardCount]);
+
+  return (
+    <>
+      <Slider
+        cardCount={cardCount}
+        currentScore={currentScore}
+        bestScore={bestScore}
+        setCardCount={setCardCount}
+        setCurrentScore={setCurrentScore}
+        setBestScore={setBestScore}
+      />
+      <section id="cards">
+        <div className="cards-container">
+          {cards?.map((item) => (
+            <Card
+              key={item.id}
+              item={item}
+              onClickHandler={onClickHandler}
+            />
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

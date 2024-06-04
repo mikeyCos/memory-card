@@ -1,22 +1,42 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
+import Modal from "./components/Modal";
 import "./styles/App.css";
 
 export default function App() {
+  const [newGame, setNewGame] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
   const [currentScore, setCurrentScore] = useState(0);
   const [bestScore, setBestScore] = useState(currentScore);
+  const gameWinRef = useRef(false);
+  console.log("gameWinRef.current", gameWinRef.current);
   return (
     <div id="app">
       <Header currentScore={currentScore} bestScore={bestScore} />
       <Main
+        gameWinRef={gameWinRef}
+        newGame={newGame}
+        gameOver={gameOver}
         currentScore={currentScore}
         bestScore={bestScore}
+        setGameOver={setGameOver}
         setCurrentScore={setCurrentScore}
         setBestScore={setBestScore}
       />
       <Footer />
+      {/* {gameOver && (
+        <Modal
+          gameWinRef={gameWinRef}
+          openModal={gameOver}
+          closeModal={(newGame) => {
+            gameWinRef.current = false;
+            setGameOver(false);
+            setNewGame(newGame);
+          }}
+        />
+      )} */}
     </div>
   );
 }

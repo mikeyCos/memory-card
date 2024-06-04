@@ -1,6 +1,9 @@
 #scoreboard {
   display: flex;
   flex-direction: column;
-  padding: 0.5rem;
   align-items: end;
+}
+
+#scoreboard > h3 {
+  text-wrap: nowrap;
 }

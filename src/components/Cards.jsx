@@ -1,12 +1,16 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "./Slider";
 import THECATAPI_KEY from "../data/THECATAPI_KEY";
 import "../styles/cards.css";
 
 let renderCount = 0;
 export default function Cards({
+  gameWinRef,
+  newGame,
+  gameOver,
   currentScore,
   bestScore,
+  setGameOver,
   setCurrentScore,
   setBestScore,
 }) {
@@ -14,15 +18,36 @@ export default function Cards({
   const [cardCount, setCardCount] = useState(6);
   const [cards, setCards] = useState(null);
 
+  const onClickHandler = (isClicked, setIsClicked) => {
+    if (isClicked) {
+      setCurrentScore(0);
+      if (currentScore > bestScore) setBestScore(currentScore);
+      buildArray(cardCount, setCards);
+      // setGameOver(true);
+    } else {
+      setIsClicked(true);
+      setCurrentScore(currentScore + 1);
+
+      if (currentScore + 1 === cardCount) {
+        gameWinRef.current = true;
+        // setGameOver(true);
+        buildArray(cardCount, setCards);
+      } else {
+        setCards(shuffleCards(cards));
+      }
+    }
+  };
+
   useEffect(() => {
     // Problem, re-renders immediately onload
     // Where and what is causing the re-renders (╯°□°)╯︵ ┻━┻
+    console.group();
     console.log("mounting");
     console.log("cardCount:", cardCount);
     console.log("-------------renderCount:", renderCount);
+    console.groupEnd();
     // Option 1
     buildArray(cardCount, setCards);
-
     // Option 2
     // How to throw error based on
     // fetch(
@@ -39,7 +64,7 @@ export default function Cards({
     //       }))
     //     )
     //   );
-  }, [cardCount]);
+  }, [cardCount, newGame]);
 
   console.log("-------------renderCount:", renderCount);
   console.log("cardCount:", cardCount);
@@ -56,18 +81,9 @@ export default function Cards({
         setBestScore={setBestScore}
       />
       <section id="cards">
-        <div className="cards-container">
+        <div className="container">
           {cards?.map((item) => (
-            <Card
-              key={item.id}
-              item={item}
-              cardCount={cardCount}
-              setCards={setCards}
-              shuffleCards={() => setCards(shuffle(cards))}
-              currentScore={currentScore}
-              setCurrentScore={setCurrentScore}
-              setBestScore={setBestScore}
-            />
+            <Card key={item.id} item={item} onClickHandler={onClickHandler} />
           ))}
         </div>
       </section>
@@ -75,30 +91,14 @@ export default function Cards({
   );
 }
 
-function Card({
-  item,
-  cardCount,
-  setCards,
-  shuffleCards,
-  currentScore,
-  setCurrentScore,
-  setBestScore,
-}) {
+function Card({ item, onClickHandler }) {
   // What to do if user actually clicks all unique cards only one time?
   const [isClicked, setIsClicked] = useState(false);
   return (
     <div
       className="card"
       onClick={() => {
-        if (isClicked) {
-          setCurrentScore(0);
-          setBestScore(currentScore);
-          buildArray(cardCount, setCards);
-        } else {
-          setIsClicked(true);
-          setCurrentScore(currentScore + 1);
-          shuffleCards();
-        }
+        onClickHandler(isClicked, setIsClicked);
       }}
     >
       {item.url && <img src={item.url} />}
@@ -129,7 +129,7 @@ const buildArray = async (length, callback) => {
     console.log(response);
     const data = await response.json();
 
-    // if (!response.ok) throw new Error("Throw error test");
+    if (!response.ok) throw new Error("Throw error test");
 
     callback(data);
   } catch (err) {
@@ -142,7 +142,7 @@ const buildArray = async (length, callback) => {
   }
 };
 
-const shuffle = (arr) => {
+const shuffleCards = (arr) => {
   let i = arr.length;
   const shuffledArr = [...arr];
   while (i) {
