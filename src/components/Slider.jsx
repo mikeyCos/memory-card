@@ -1,3 +1,4 @@
+import debounce from "../utilities/debounce";
 import "../styles/Slider.css";
 
 export default function Slider({
@@ -8,6 +9,13 @@ export default function Slider({
   setCurrentScore,
   setBestScore,
 }) {
+  const onChangeHandler = (e) => {
+    setCardCount(+e.target.value);
+    bestScore > 0 && setBestScore(0);
+    currentScore > 0 && setCurrentScore(0);
+  };
+
+  // The input
   return (
     <div className="slider" role="slider">
       <div className="slider-container">
@@ -19,12 +27,8 @@ export default function Slider({
           min="6"
           max="30"
           step="3"
-          onChange={(e) => {
-            setCardCount(+e.currentTarget.value);
-            bestScore > 0 && setBestScore(0);
-            currentScore > 0 && setCurrentScore(0);
-          }}
-          value={cardCount}
+          onChange={debounce(onChangeHandler, 200)}
+          defaultValue={cardCount}
         />
       </div>
     </div>

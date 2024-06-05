@@ -1,7 +1,13 @@
 # Changelog
 ---
-### 05 JUN 2024
+### 06 JUN 2024
 - 
+---
+### 05 JUN 2024
+- Fixed slider input bug; slider input is now an uncontrolled input versus a controlled input despite passing the `cardCount` prop. The `defaultValue` is used to define the initial input's value, instead of using the `value` attribute; [controlling an input with a state variable ](https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable).
+- Added a "fade-in" animation for `.current-score` and `.best-score` elements.
+- Added slide animations for notifications and dialog element.
+- Installed `postcss` and `autoprefixer` as `devDependencies` in `package.json`.
 ---
 ### 04 JUN 2024
 - Created `media` sub-directory to store images for `README.md`.

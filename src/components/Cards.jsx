@@ -125,12 +125,11 @@ function Card({ item, onClickHandler, gameOver }) {
   }, [gameOver]);
 
   return (
-    <div
-      className="card"
-      onClick={() => onClickHandler(isClicked, setIsClicked)}
-    >
-      {item.url && <img src={item.url} />}
-      {item.error && <div>{item.error}</div>}
+    <div className="card">
+      <button onClick={() => onClickHandler(isClicked, setIsClicked)}>
+        {item.url && <img src={item.url} />}
+        {item.error && <div>{item.error}</div>}
+      </button>
     </div>
   );
 }

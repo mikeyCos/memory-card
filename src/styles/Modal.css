@@ -4,6 +4,16 @@
   margin-right: auto;
   width: 70%;
   max-width: 400px;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 15px 0px black;
+}
+
+.modal.game-over.slide {
+  animation-name: slide-from-top;
+  animation-duration: 250ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: backwards;
 }
 
 .modal.game-over::backdrop {
@@ -11,21 +21,59 @@
 }
 
 .modal.game-over .container {
+  height: 100%;
   padding: 1rem;
+}
+
+.modal.game-over p {
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 2rem);
 }
 
 .modal.game-over .btn-container {
   display: flex;
+  justify-content: center;
   gap: 1rem;
   padding: 1rem;
+  flex-wrap: wrap;
 }
 
 .modal.game-over button {
+  font-family: var(--font-family-primary);
+  font-weight: 600;
   border-radius: 0.5rem;
   border: none;
   padding: 1rem 0.5rem;
+  background-color: #a2a3bb;
+  box-shadow: 0px 1px 3px 0px #000000;
 }
 
 .modal.game-over button:hover {
   cursor: pointer;
+}
+
+.modal.game-over button:focus,
+.modal.game-over button:hover {
+  background-color: #b3b7ee;
+}
+
+@media screen and (min-width: 480px) {
+  .modal.game-over p {
+    text-align: unset;
+  }
+
+  .modal.game-over .btn-container {
+    flex-wrap: nowrap;
+    justify-content: end;
+  }
+}
+
+@keyframes slide-from-top {
+  from {
+    transform: translateY(-200%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
 }

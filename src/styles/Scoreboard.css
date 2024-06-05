@@ -8,8 +8,25 @@
   text-wrap: nowrap;
 }
 
+#scoreboard .fade-in {
+  animation-name: fade-in;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in;
+  animation-fill-mode: backwards;
+}
+
 @media screen and (min-width: 768px) {
   #scoreboard {
     margin-right: 1rem;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

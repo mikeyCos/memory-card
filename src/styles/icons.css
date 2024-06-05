@@ -15,20 +15,24 @@
 
 /* .icon.logo:hover { */
 .nav-left a:hover {
-  animation: wobble 500ms infinite alternate-reverse;
+  animation-name: wobble;
+  animation-duration: 500ms;
+  animation-iteration-count: infinite;
+  animation-direction: alternate-reverse;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  -webkit-animation: wobble 500ms infinite alternate-reverse;
   image-rendering: -webkit-optimize-contrast;
 }
 
 @keyframes rotate {
   from {
     transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
   }
 
   to {
     transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
   }
 }
 
@@ -45,6 +49,11 @@
 }
 
 @media (hover: none) {
+  .nav-left a {
+    transform: rotate(-5deg);
+    -webkit-transform: rotate(-5deg);
+  }
+
   .icon.github {
     color: #7371fc;
   }

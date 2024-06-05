@@ -7,12 +7,13 @@
   --font-family-primary: Libre Franklin, Arial, Helvetica, sans-serif;
   --background-color-primary: #e5d9f2;
   --background-color-secondary: #9395d3;
-  --font-color-primary: #000807;
   --background-color-footer: var(--background-color-secondary);
+  --background-color-accent: #7371fc;
+  --font-color-primary: #000807;
+
   /* 
    * FBF9FF
    * B3B7EE
-   * 9395D3
    * A2A3BB
    * 7371fc
   */
