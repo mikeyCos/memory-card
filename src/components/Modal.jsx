@@ -16,7 +16,7 @@ export default function Modal({ gameWinRef, openModal, closeModal }) {
         </p>
         <div className="btn-container">
           <button onClick={() => closeModal(true)}>New game</button>
-          {/* <button onClick={() => closeModal(false)}>Try again?</button> */}
+          <button onClick={() => closeModal(false)}>Try again?</button>
         </div>
       </div>
     </dialog>

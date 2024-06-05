@@ -1,7 +1,15 @@
 # Changelog
 ---
-### 04 JUN 2024
+### 05 JUN 2024
 - 
+---
+### 04 JUN 2024
+- Created `media` sub-directory to store images for `README.md`.
+- Clicking the "New game" button will render a new collection of cards while the "Try again?" button will shuffle the current collection of cards and the dialog will close. 
+- If a user has clicked all cards only one time, the dialog's message will be "The cats are happy", otherwise the dialog's message will be "The cats are angry."
+- Reenabled a dialog element that is rendered when a game has ended. A game ends when a user has either clicked all cards only one time or if a user has clicked a card or image twice. 
+- Saved `LibreFranklin` Google Font and defined it in `index.css` with `@font-face`.
+- If all cards are uniquely clicked (each card or image has been clicked on only one time), a new score is calculated, recorded in best score and current score is reset to zero.
 ---
 ### 03 JUN 2024
 - Updated README.md.

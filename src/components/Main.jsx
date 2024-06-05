@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
 import Cards from "./Cards";
-import "../styles/main.css";
+import "../styles/Main.css";
 
 export default function Main({
+  gameStatusRef,
   gameWinRef,
-  newGame,
   gameOver,
   currentScore,
   bestScore,
@@ -15,8 +14,8 @@ export default function Main({
   return (
     <main>
       <Cards
+        gameStatusRef={gameStatusRef}
         gameWinRef={gameWinRef}
-        newGame={newGame}
         gameOver={gameOver}
         currentScore={currentScore}
         bestScore={bestScore}

@@ -1,4 +1,4 @@
-import "../styles/slider.css";
+import "../styles/Slider.css";
 
 export default function Slider({
   cardCount,

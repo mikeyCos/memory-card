@@ -34,6 +34,10 @@ header {
   align-items: center;
 }
 
+.nav-item a {
+  color: black;
+}
+
 @media screen and (min-width: 768px) {
   #navbar {
     justify-content: space-between;

@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/mikeyCos/cv-application">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./src/assets/media/project_logo_00.png" alt="Logo" >
   </a>
 
 <h3 align="center">Memory Card</h3>
@@ -85,11 +85,13 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Memory Card Screen Shot][product-screenshot]](https://example.com)
+[![Memory Card Screen Shot][product-screenshot]](https://memorycard-mikeycos.netlify.app/)
 
 Project: Memory Card
 
 Hello world,
+
+This is my second React project and it involves cats! The project focuses on implementing the `useEffect` React hook. 
 
 Pellentesque tincidunt vel ante lobortis vehicula. Donec ex justo, volutpat nec ultricies non, elementum nec nibh. Maecenas porttitor est ac nibh congue, sed placerat lorem bibendum. Duis non ante in ex sollicitudin pulvinar nec sit amet turpis. Pellentesque ac elit sed libero vehicula convallis. Pellentesque tincidunt tellus nec lacus mollis pellentesque. Integer tempus sit amet nunc a auctor. Morbi at ullamcorper dolor, non placerat orci. Ut ut efficitur metus. In efficitur enim id sodales porta. Phasellus scelerisque, augue sit amet semper suscipit, lacus nunc laoreet lorem, sit amet elementum orci justo in risus. Ut diam est, egestas sed ligula ut, cursus dignissim nibh. Mauris in est dui. Pellentesque in sem ut dolor laoreet porta. Etiam vitae accumsan tortor. Vestibulum magna mi, sagittis eget consequat a, tincidunt in ligula.
 
@@ -297,7 +299,7 @@ function Cards({
 [license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: ./src/assets/media/project_screeshot_00.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

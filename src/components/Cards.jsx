@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import Slider from "./Slider";
 import THECATAPI_KEY from "../data/THECATAPI_KEY";
-import "../styles/cards.css";
+import "../styles/Cards.css";
 
 let renderCount = 0;
 export default function Cards({
+  gameStatusRef,
   gameWinRef,
-  newGame,
   gameOver,
   currentScore,
   bestScore,
@@ -17,21 +17,42 @@ export default function Cards({
   renderCount++;
   const [cardCount, setCardCount] = useState(6);
   const [cards, setCards] = useState(null);
+  const tryAgain = {
+    fn: setCards,
+    args: { cards, callback: shuffleCards },
+  };
+
+  const newGame = {
+    fn: buildArray,
+    args: { length: cardCount, callback: setCards },
+  };
 
   const onClickHandler = (isClicked, setIsClicked) => {
+    gameStatusRef.current = {
+      tryAgain,
+      newGame,
+    };
+
     if (isClicked) {
+      // Reset currentScore to 0
+      // If currentScore is > bestScore set bestScore to currentScore
+      // Create new array of cards
       setCurrentScore(0);
       if (currentScore > bestScore) setBestScore(currentScore);
-      buildArray(cardCount, setCards);
-      // setGameOver(true);
+      setGameOver(true);
     } else {
+      // Calculate currentScore + 1 and store into newScore variable
+      // Record card has been clicked
+      const newScore = currentScore + 1;
       setIsClicked(true);
-      setCurrentScore(currentScore + 1);
+      setCurrentScore(newScore);
 
-      if (currentScore + 1 === cardCount) {
+      const checkScore = newScore === cardCount;
+      if (checkScore) {
         gameWinRef.current = true;
-        // setGameOver(true);
-        buildArray(cardCount, setCards);
+        setGameOver(true);
+        setBestScore(newScore);
+        setCurrentScore(0);
       } else {
         setCards(shuffleCards(cards));
       }
@@ -47,7 +68,7 @@ export default function Cards({
     console.log("-------------renderCount:", renderCount);
     console.groupEnd();
     // Option 1
-    buildArray(cardCount, setCards);
+    buildArray({ length: cardCount, callback: setCards });
     // Option 2
     // How to throw error based on
     // fetch(
@@ -64,7 +85,7 @@ export default function Cards({
     //       }))
     //     )
     //   );
-  }, [cardCount, newGame]);
+  }, [cardCount]);
 
   console.log("-------------renderCount:", renderCount);
   console.log("cardCount:", cardCount);
@@ -83,7 +104,12 @@ export default function Cards({
       <section id="cards">
         <div className="container">
           {cards?.map((item) => (
-            <Card key={item.id} item={item} onClickHandler={onClickHandler} />
+            <Card
+              key={item.id}
+              item={item}
+              onClickHandler={onClickHandler}
+              gameOver={gameOver}
+            />
           ))}
         </div>
       </section>
@@ -91,15 +117,17 @@ export default function Cards({
   );
 }
 
-function Card({ item, onClickHandler }) {
-  // What to do if user actually clicks all unique cards only one time?
+function Card({ item, onClickHandler, gameOver }) {
   const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    if (gameOver) setIsClicked(false);
+  }, [gameOver]);
+
   return (
     <div
       className="card"
-      onClick={() => {
-        onClickHandler(isClicked, setIsClicked);
-      }}
+      onClick={() => onClickHandler(isClicked, setIsClicked)}
     >
       {item.url && <img src={item.url} />}
       {item.error && <div>{item.error}</div>}
@@ -108,7 +136,7 @@ function Card({ item, onClickHandler }) {
 }
 
 let buildArrayCounter = 0;
-const buildArray = async (length, callback) => {
+const buildArray = async ({ length, callback }) => {
   buildArrayCounter++;
   console.log("buildArrayCounter:", buildArrayCounter);
   // return new Array(length).fill().map(() => Math.floor(Math.random() * 1000));

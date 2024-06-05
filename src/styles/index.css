@@ -1,3 +1,23 @@
+@font-face {
+  font-family: Libre Franklin;
+  src: url(../assets//fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.ttf);
+}
+
+:root {
+  --font-family-primary: Libre Franklin, Arial, Helvetica, sans-serif;
+  --background-color-primary: #e5d9f2;
+  --background-color-secondary: #9395d3;
+  --font-color-primary: #000807;
+  --background-color-footer: var(--background-color-secondary);
+  /* 
+   * FBF9FF
+   * B3B7EE
+   * 9395D3
+   * A2A3BB
+   * 7371fc
+  */
+}
+
 *,
 *::before,
 *::after {
@@ -6,10 +26,7 @@
   margin: 0;
 }
 
-:root {
-  --background-color-primary: #ffffff;
-}
-
 #root {
   height: 100svh;
+  font-family: var(--font-family-primary);
 }

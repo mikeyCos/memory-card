@@ -2,6 +2,8 @@
   top: 10%;
   margin-left: auto;
   margin-right: auto;
+  width: 70%;
+  max-width: 400px;
 }
 
 .modal.game-over::backdrop {
@@ -9,5 +11,21 @@
 }
 
 .modal.game-over .container {
-  padding: 2rem;
+  padding: 1rem;
+}
+
+.modal.game-over .btn-container {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.modal.game-over button {
+  border-radius: 0.5rem;
+  border: none;
+  padding: 1rem 0.5rem;
+}
+
+.modal.game-over button:hover {
+  cursor: pointer;
 }
