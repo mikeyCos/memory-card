@@ -3,7 +3,6 @@ import Slider from "./Slider";
 import THECATAPI_KEY from "../data/THECATAPI_KEY";
 import "../styles/Cards.css";
 
-let renderCount = 0;
 export default function Cards({
   gameStatusRef,
   gameWinRef,
@@ -14,9 +13,9 @@ export default function Cards({
   setCurrentScore,
   setBestScore,
 }) {
-  renderCount++;
   const [cardCount, setCardCount] = useState(6);
   const [cards, setCards] = useState(null);
+  const fetchRef = useRef(null);
   const tryAgain = {
     fn: setCards,
     args: { cards, callback: shuffleCards },
@@ -60,15 +59,8 @@ export default function Cards({
   };
 
   useEffect(() => {
-    // Problem, re-renders immediately onload
-    // Where and what is causing the re-renders (╯°□°)╯︵ ┻━┻
-    console.group();
-    console.log("mounting");
-    console.log("cardCount:", cardCount);
-    console.log("-------------renderCount:", renderCount);
-    console.groupEnd();
     // Option 1
-    buildArray({ length: cardCount, callback: setCards });
+    buildArray({ length: cardCount, callback: setCards, fetchRef });
     // Option 2
     // How to throw error based on
     // fetch(
@@ -86,10 +78,6 @@ export default function Cards({
     //     )
     //   );
   }, [cardCount]);
-
-  console.log("-------------renderCount:", renderCount);
-  console.log("cardCount:", cardCount);
-  console.log("cards:", cards);
 
   return (
     <>
@@ -134,33 +122,37 @@ function Card({ item, onClickHandler, gameOver }) {
   );
 }
 
-let buildArrayCounter = 0;
-const buildArray = async ({ length, callback }) => {
-  buildArrayCounter++;
-  console.log("buildArrayCounter:", buildArrayCounter);
-  // return new Array(length).fill().map(() => Math.floor(Math.random() * 1000));
+const buildArray = async ({ length, callback, fetchRef }) => {
+  const controller = new AbortController();
+  const signal = controller.signal;
+
   try {
     const response = await fetch(
       `https://api.thecatapi.com/v1/images/search?size=small&limit=${length}&mime_types=png`,
       {
         mode: "cors",
         headers: { "x-api-key": THECATAPI_KEY },
+        signal,
       }
     );
+
+    // If there is a previous API request, abort the controller
+    // Set fetchRef to the new request
+    // This does not work as intended
+    // fetchRef?.current?.controller?.abort();
+    // fetchRef.current = fetchRef ? controller : null;
 
     // If fetch fails, lines from below up to the catch block do not run
     // Why? (╯°□°)╯︵ ┻━┻
     // https://jasonwatmore.com/post/2021/10/09/fetch-error-handling-for-failed-http-responses-and-network-errors#:~:text=The%20fetch()%20function%20will,reject(error)%3B%20.
     // The fetch() function will automatically throw an error for network errors
     // but not for HTTP errors such as 4xx or 5xx responses.
-    console.log(response);
     const data = await response.json();
 
     if (!response.ok) throw new Error("Throw error test");
 
     callback(data);
   } catch (err) {
-    console.log(err);
     callback(
       new Array(length)
         .fill()

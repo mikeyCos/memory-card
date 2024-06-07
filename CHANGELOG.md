@@ -1,7 +1,9 @@
 # Changelog
 ---
 ### 06 JUN 2024
-- 
+- Update README.md.
+- Removed `console.log` methods throughout project.
+- Created `demo` directory.
 ---
 ### 05 JUN 2024
 - Fixed slider input bug; slider input is now an uncontrolled input versus a controlled input despite passing the `cardCount` prop. The `defaultValue` is used to define the initial input's value, instead of using the `value` attribute; [controlling an input with a state variable ](https://react.dev/reference/react-dom/components/input#controlling-an-input-with-a-state-variable).
